@@ -11,6 +11,7 @@ var VisuallyImpaired = (function() {
 
         container.appendChild(createFontController());
         container.appendChild(createCerningController());
+        container.appendChild(createColoringController());
         return container;
     }
     function createFontController() {
@@ -23,7 +24,7 @@ var VisuallyImpaired = (function() {
 
         var btnFontDecrement = document.createElement('div');
         btnFontDecrement.classList.add('vi-btn');
-        btnFontDecrement.innerHTML = 'A-';
+        btnFontDecrement.innerHTML = 'a-';
 
         var btnFontIncrement = document.createElement('div');
         btnFontIncrement.classList.add('vi-btn');
@@ -64,7 +65,7 @@ var VisuallyImpaired = (function() {
 
         var btnCerningDecrement = document.createElement('div');
         btnCerningDecrement.classList.add('vi-btn');
-        btnCerningDecrement.innerHTML = 'C-';
+        btnCerningDecrement.innerHTML = 'c-';
 
         var btnCerningIncrement = document.createElement('div');
         btnCerningIncrement.classList.add('vi-btn');
@@ -89,6 +90,64 @@ var VisuallyImpaired = (function() {
             } else {
                 document.body.style.letterSpacing = '1px';
             }
+        });
+
+        return container;
+    }
+    function createColoringController() {
+        var container = document.createElement('div');
+        container.classList.add('vi-item');
+
+        var itemLabel = document.createElement('div');
+        itemLabel.classList.add('vi-item__label');
+        itemLabel.innerHTML = 'Цвет и фон';
+
+        var btnWhite = document.createElement('div');
+        btnWhite.classList.add('vi-btn');
+        btnWhite.innerHTML = 'W';
+
+        var btnBlack = document.createElement('div');
+        btnBlack.classList.add('vi-btn');
+        btnBlack.innerHTML = 'B';
+
+        var btnDefault = document.createElement('div');
+        btnDefault.classList.add('vi-btn');
+        btnDefault.innerHTML = 'Off';
+
+        container.appendChild(itemLabel);
+        container.appendChild(btnWhite);
+        container.appendChild(btnBlack);
+        container.appendChild(btnDefault);
+
+        btnWhite.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var scope = document.querySelectorAll('body > *:not(.vi-button):not(.vi-container):not(script):not(style):not(link)');
+
+            document.body.style.background = '#FFF';
+            document.body.style.color = '#000';
+
+            scope.forEach(function(item, index) {
+                item.style.background = '#FFF';
+                item.style.color = '#000';
+            })
+        });
+        btnBlack.addEventListener('click', function (e) {
+            e.preventDefault();
+            var scope = document.querySelectorAll('body > *:not(.vi-button):not(.vi-container):not(script):not(style):not(link)');
+
+            document.body.style.background = '#000';
+            document.body.style.color = '#FFF';
+
+            scope.forEach(function (item, index) {
+                item.style.background = '#000';
+                item.style.color = '#FFF';
+            })
+        });
+        btnDefault.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.body.style.background = '';
+            document.body.style.color = '';
         });
 
         return container;
